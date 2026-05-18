@@ -1,8 +1,7 @@
 package view;
 
-import model.Criptoativo;
-import model.Empresa;
-import model.Investidor;
+import enums.TipoOperacao;
+import model.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,6 +90,7 @@ public class SistemaInvestimentos {
                     listarEmpresas();
                     break;
                 case 3:
+                    comprarCriptoativo();
                     break;
                 case 4:
                     break;
@@ -213,5 +213,80 @@ public class SistemaInvestimentos {
 
             System.out.println((i + 1) + " - " + empresa.getRazaoSocial());
         }
+    }
+
+    private void comprarCriptoativo() {
+        Empresa empresa = selecionarEmpresa();
+
+        if (empresa == null) { return; }
+
+        Criptoativo ativo = selecionarCriptoativo();
+
+        if (ativo == null) { return ; }
+
+        System.out.print("Quantidade: ");
+        double quantidade = scanner.nextDouble();
+
+        System.out.print("Taxa: ");
+        double taxa = scanner.nextDouble();
+
+        Ordem ordem = new Ordem(
+                TipoOperacao.COMPRA,
+                quantidade,
+                ativo.getValorAtual(),
+                ativo
+        );
+
+        Transacao transacao = ordem.executarOrdem(taxa);
+        empresa.getCarteira().registrarTransacao(transacao);
+
+        System.out.println("Compra realizada com sucesso!");
+    }
+
+    private Empresa selecionarEmpresa() {
+        List<Empresa> empresas = this.investidorLogado.getEmpresas();
+
+        if (empresas.isEmpty()) {
+            System.out.println("Nenhuma empresa cadastrada.");
+            return null;
+        }
+
+        System.out.println("\n --- Empresas ---");
+
+        for (int i = 0; i < empresas.size(); i++) {
+            Empresa empresa = empresas.get(i);
+
+            System.out.println((i + 1) + " - " + empresa.getRazaoSocial());
+        }
+
+        System.out.print("Escolha a empresa: ");
+        int opcao = scanner.nextInt();
+
+        if (opcao < 1 || opcao > empresas.size()) {
+            System.out.println("Empresa inválida.");
+            return null;
+        }
+
+        return empresas.get(opcao - 1);
+    }
+
+    private Criptoativo selecionarCriptoativo() {
+        System.out.println("\n --- Mercado ---");
+
+        for (int i = 0; i < mercado.size(); i++) {
+            Criptoativo ativo = mercado.get(i);
+
+            System.out.println((i + 1) + " - " + ativo.getNome() + " (" + ativo.getSimbolo() + ") | R$ " + ativo.getValorAtual());
+        }
+
+        System.out.print("Escolha o ativo: ");
+        int opcao = scanner.nextInt();
+
+        if (opcao < 1 || opcao > mercado.size()) {
+            System.out.println("Ativo inválido.");
+            return null;
+        }
+
+        return mercado.get(opcao - 1);
     }
 }
