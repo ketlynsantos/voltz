@@ -27,6 +27,7 @@ public class SistemaInvestimentos {
             opcao = scanner.nextInt();
             switch (opcao) {
                 case 1:
+                    cadastrarInvestidor();
                     break;
                 case 2:
                     break;
@@ -77,5 +78,24 @@ public class SistemaInvestimentos {
         mercado.add(bitcoin);
         mercado.add(ethereum);
         mercado.add(solana);
+    }
+
+    private void cadastrarInvestidor() {
+        scanner.nextLine();
+        System.out.println("\n --- Cadastro de Investidor ---");
+        System.out.print("Nome: ");
+        String nome = scanner.nextLine();
+
+        System.out.print("Email: ");
+        String email = scanner.nextLine();
+
+        System.out.print("CPF: ");
+        String cpf = scanner.nextLine();
+
+        System.out.print("Senha: ");
+        String senha = scanner.nextLine();
+
+        this.investidor = new Investidor(nome, email, cpf, senha);
+        System.out.println("Investidor cadastrado com sucesso!");
     }
 }
