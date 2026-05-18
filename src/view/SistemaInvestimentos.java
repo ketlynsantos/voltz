@@ -88,6 +88,7 @@ public class SistemaInvestimentos {
                     cadastrarEmpresa();
                     break;
                 case 2:
+                    listarEmpresas();
                     break;
                 case 3:
                     break;
@@ -100,6 +101,7 @@ public class SistemaInvestimentos {
                 case 7:
                     break;
                 case 0:
+                    logout();
                     break;
                 default:
                     System.out.println("Opção inválida!");
@@ -196,5 +198,20 @@ public class SistemaInvestimentos {
         this.investidorLogado.adicionarEmpresa(empresa);
 
         System.out.println("Empresa cadastrada com sucesso!");
+    }
+
+    private void listarEmpresas() {
+        List<Empresa> empresas = this.investidorLogado.getEmpresas();
+
+        if (empresas.isEmpty()) {
+            System.out.println("Nenhuma empresa cadastrada.");
+            return;
+        }
+
+        for (int i = 0; i < empresas.size(); i++) {
+            Empresa empresa = empresas.get(i);
+
+            System.out.println((i + 1) + " - " + empresa.getRazaoSocial());
+        }
     }
 }
