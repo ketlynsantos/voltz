@@ -46,11 +46,28 @@ public class AnalisePortfolio {
     }
 
     // Getters
+    public int getId() {
+        return id;
+    }
+
     public LocalDateTime getDataAnalise() {
         return dataAnalise;
     }
 
     public NivelRisco getNivelRisco() {
         return nivelRisco;
+    }
+
+    // Setters
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setDataAnalise(LocalDateTime dataAnalise) {
+        this.dataAnalise = dataAnalise;
+    }
+
+    public void setNivelRisco(NivelRisco nivelRisco) {
+        this.nivelRisco = nivelRisco;
     }
 }

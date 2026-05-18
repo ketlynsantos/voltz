@@ -43,6 +43,10 @@ public class Ordem {
     }
 
     // Getters
+    public int getId() {
+        return id;
+    }
+
     public TipoOperacao getTipoOperacao() {
         return tipoOperacao;
     }
@@ -69,5 +73,38 @@ public class Ordem {
 
     public Criptoativo getCriptoativo() {
         return criptoativo;
+    }
+
+    // Setters
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setTipoOperacao(TipoOperacao tipoOperacao) {
+        this.tipoOperacao = tipoOperacao;
+    }
+
+    public void setStatusOrdem(StatusOrdem statusOrdem) {
+        this.statusOrdem = statusOrdem;
+    }
+
+    public void setQuantidadeOrdem(double quantidadeOrdem) {
+        this.quantidadeOrdem = quantidadeOrdem;
+    }
+
+    public void setPrecoLimite(double precoLimite) {
+        this.precoLimite = precoLimite;
+    }
+
+    public void setDataCriacao(LocalDateTime dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
+
+    public void setDataExecucao(LocalDateTime dataExecucao) {
+        this.dataExecucao = dataExecucao;
+    }
+
+    public void setCriptoativo(Criptoativo criptoativo) {
+        this.criptoativo = criptoativo;
     }
 }

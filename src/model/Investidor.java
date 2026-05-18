@@ -36,6 +36,10 @@ public class Investidor {
     }
 
     // Getters
+    public int getId() {
+        return id;
+    }
+
     public String getNome() {
         return nome;
     }
@@ -48,7 +52,36 @@ public class Investidor {
         return cpf;
     }
 
+    public String getSenhaHash() {
+        return senhaHash;
+    }
+
     public List<Empresa> getEmpresas() {
         return empresas;
+    }
+
+    // Setters
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public void setSenhaHash(String senhaHash) {
+        this.senhaHash = senhaHash;
+    }
+
+    public void setEmpresas(List<Empresa> empresas) {
+        this.empresas = empresas;
     }
 }

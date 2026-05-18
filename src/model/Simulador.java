@@ -23,7 +23,20 @@ public class Simulador {
     }
 
     // Getters
+    public int getId() {
+        return id;
+    }
+
     public double getSaldoSimulado() {
         return saldoSimulado;
+    }
+
+    // Setters
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setSaldoSimulado(double saldoSimulado) {
+        this.saldoSimulado = saldoSimulado;
     }
 }

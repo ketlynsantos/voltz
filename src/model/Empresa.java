@@ -18,6 +18,10 @@ public class Empresa {
     }
 
     // Getters
+    public int getId() {
+        return id;
+    }
+
     public String getRazaoSocial() {
         return razaoSocial;
     }
@@ -28,5 +32,22 @@ public class Empresa {
 
     public Carteira getCarteira() {
         return carteira;
+    }
+
+    // Setters
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setRazaoSocial(String razaoSocial) {
+        this.razaoSocial = razaoSocial;
+    }
+
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
+    }
+
+    public void setCarteira(Carteira carteira) {
+        this.carteira = carteira;
     }
 }

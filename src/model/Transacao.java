@@ -32,6 +32,10 @@ public class Transacao {
     }
 
     // Getters
+    public int getId() {
+        return id;
+    }
+
     public TipoOperacao getTipoOperacao() {
         return tipoOperacao;
     }
@@ -58,5 +62,38 @@ public class Transacao {
 
     public LocalDateTime getDataTransacao() {
         return dataTransacao;
+    }
+
+    // Setters
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setTipoOperacao(TipoOperacao tipoOperacao) {
+        this.tipoOperacao = tipoOperacao;
+    }
+
+    public void setQuantidade(double quantidade) {
+        this.quantidade = quantidade;
+    }
+
+    public void setPrecoUnitario(double precoUnitario) {
+        this.precoUnitario = precoUnitario;
+    }
+
+    public void setValorTotal(double valorTotal) {
+        this.valorTotal = valorTotal;
+    }
+
+    public void setTaxa(double taxa) {
+        this.taxa = taxa;
+    }
+
+    public void setCriptoativo(Criptoativo criptoativo) {
+        this.criptoativo = criptoativo;
+    }
+
+    public void setDataTransacao(LocalDateTime dataTransacao) {
+        this.dataTransacao = dataTransacao;
     }
 }

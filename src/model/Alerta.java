@@ -77,6 +77,10 @@ public class Alerta {
     }
 
     // Getters
+    public int getId() {
+        return id;
+    }
+
     public double getValorAlvo() {
         return valorAlvo;
     }
@@ -109,4 +113,40 @@ public class Alerta {
         return dataDisparo;
     }
 
+    // Setters
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setValorAlvo(double valorAlvo) {
+        this.valorAlvo = valorAlvo;
+    }
+
+    public void setPercentualVariacao(double percentualVariacao) {
+        this.percentualVariacao = percentualVariacao;
+    }
+
+    public void setTipoAlerta(TipoAlerta tipoAlerta) {
+        this.tipoAlerta = tipoAlerta;
+    }
+
+    public void setTipoCondicao(TipoCondicao tipoCondicao) {
+        this.tipoCondicao = tipoCondicao;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
+
+    public void setDisparado(boolean disparado) {
+        this.disparado = disparado;
+    }
+
+    public void setCriptoativo(Criptoativo criptoativo) {
+        this.criptoativo = criptoativo;
+    }
+
+    public void setDataDisparo(LocalDateTime dataDisparo) {
+        this.dataDisparo = dataDisparo;
+    }
 }

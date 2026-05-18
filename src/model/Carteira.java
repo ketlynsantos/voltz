@@ -86,6 +86,10 @@ public class Carteira {
     }
 
     // Getters
+    public int getId() {
+        return id;
+    }
+
     public double getSaldoDisponivelFiat() {
         return saldoDisponivelFiat;
     }
@@ -100,5 +104,26 @@ public class Carteira {
 
     public List<Posicao> getPosicoes() {
         return posicoes;
+    }
+
+    // Setters
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setSaldoDisponivelFiat(double saldoDisponivelFiat) {
+        this.saldoDisponivelFiat = saldoDisponivelFiat;
+    }
+
+    public void setMovimentacoes(List<MovimentacaoFiat> movimentacoes) {
+        this.movimentacoes = movimentacoes;
+    }
+
+    public void setTransacoes(List<Transacao> transacoes) {
+        this.transacoes = transacoes;
+    }
+
+    public void setPosicoes(List<Posicao> posicoes) {
+        this.posicoes = posicoes;
     }
 }

@@ -57,6 +57,10 @@ public class Posicao {
     }
 
     // Getters
+    public int getId() {
+        return id;
+    }
+
     public Criptoativo getCriptoativo() {
         return criptoativo;
     }
@@ -71,5 +75,26 @@ public class Posicao {
 
     public double getValorTotalInvestido() {
         return valorTotalInvestido;
+    }
+
+    // Setters
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setCriptoativo(Criptoativo criptoativo) {
+        this.criptoativo = criptoativo;
+    }
+
+    public void setQuantidadeAtivo(double quantidadeAtivo) {
+        this.quantidadeAtivo = quantidadeAtivo;
+    }
+
+    public void setPrecoMedioCompra(double precoMedioCompra) {
+        this.precoMedioCompra = precoMedioCompra;
+    }
+
+    public void setValorTotalInvestido(double valorTotalInvestido) {
+        this.valorTotalInvestido = valorTotalInvestido;
     }
 }

@@ -13,11 +13,28 @@ public class HistoricoCotacao {
     }
 
     // Getters
+    public int getId() {
+        return id;
+    }
+
     public LocalDateTime getDataRegistro() {
         return dataRegistro;
     }
 
     public double getValorCotacao() {
         return valorCotacao;
+    }
+
+    // Setters
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setValorCotacao(double valorCotacao) {
+        this.valorCotacao = valorCotacao;
+    }
+
+    public void setDataRegistro(LocalDateTime dataRegistro) {
+        this.dataRegistro = dataRegistro;
     }
 }

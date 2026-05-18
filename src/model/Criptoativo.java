@@ -24,6 +24,10 @@ public class Criptoativo {
     }
 
     // Getters
+    public int getId() {
+        return id;
+    }
+
     public String getNome() {
         return nome;
     }
@@ -38,5 +42,26 @@ public class Criptoativo {
 
     public List<HistoricoCotacao> getHistorico() {
         return historico;
+    }
+
+    // Setters
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setSimbolo(String simbolo) {
+        this.simbolo = simbolo;
+    }
+
+    public void setValorAtual(double valorAtual) {
+        this.valorAtual = valorAtual;
+    }
+
+    public void setHistorico(List<HistoricoCotacao> historico) {
+        this.historico = historico;
     }
 }

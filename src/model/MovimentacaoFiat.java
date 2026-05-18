@@ -24,6 +24,10 @@ public class MovimentacaoFiat {
     }
 
     // Getters
+    public int getId() {
+        return id;
+    }
+
     public TipoMovimentacao getTipoMovimentacao() {
         return tipoMovimentacao;
     }
@@ -34,5 +38,22 @@ public class MovimentacaoFiat {
 
     public LocalDateTime getDataMovimentacao() {
         return dataMovimentacao;
+    }
+
+    // Setters
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setTipoMovimentacao(TipoMovimentacao tipoMovimentacao) {
+        this.tipoMovimentacao = tipoMovimentacao;
+    }
+
+    public void setValorMovimentado(double valorMovimentado) {
+        this.valorMovimentado = valorMovimentado;
+    }
+
+    public void setDataMovimentacao(LocalDateTime dataMovimentacao) {
+        this.dataMovimentacao = dataMovimentacao;
     }
 }
