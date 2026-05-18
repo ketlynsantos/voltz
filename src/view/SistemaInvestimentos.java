@@ -1,6 +1,7 @@
 package view;
 
 import model.Criptoativo;
+import model.Empresa;
 import model.Investidor;
 
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ public class SistemaInvestimentos {
                     cadastrarInvestidor();
                     break;
                 case 2:
+                    cadastrarEmpresa();
                     break;
                 case 3:
                     break;
@@ -97,5 +99,26 @@ public class SistemaInvestimentos {
 
         this.investidor = new Investidor(nome, email, cpf, senha);
         System.out.println("Investidor cadastrado com sucesso!");
+    }
+
+    private void cadastrarEmpresa() {
+        if (investidor == null) {
+            System.out.println("Cadastre um investidor primeiro!");
+            return;
+        }
+
+        scanner.nextLine();
+        System.out.println("\n --- Cadastro de Empresa ---");
+
+        System.out.print("Razão social: ");
+        String razaoSocial = scanner.nextLine();
+
+        System.out.print("CNPJ: ");
+        String cnpj = scanner.nextLine();
+
+        Empresa empresa = new Empresa(razaoSocial, cnpj);
+        investidor.adicionarEmpresa(empresa);
+
+        System.out.println("Empresa cadastrada com sucesso!");
     }
 }
