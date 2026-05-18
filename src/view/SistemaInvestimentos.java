@@ -93,6 +93,7 @@ public class SistemaInvestimentos {
                     comprarCriptoativo();
                     break;
                 case 4:
+                    venderCriptoativo();
                     break;
                 case 5:
                     break;
@@ -241,6 +242,34 @@ public class SistemaInvestimentos {
         empresa.getCarteira().registrarTransacao(transacao);
 
         System.out.println("Compra realizada com sucesso!");
+    }
+
+    private void venderCriptoativo() {
+        Empresa empresa = selecionarEmpresa();
+
+        if (empresa == null) { return; }
+
+        Criptoativo ativo = selecionarCriptoativo();
+
+        if (ativo == null) { return ; }
+
+        System.out.print("Quantidade: ");
+        double quantidade = scanner.nextDouble();
+
+        System.out.print("Taxa: ");
+        double taxa = scanner.nextDouble();
+
+        Ordem ordem = new Ordem(
+                TipoOperacao.VENDA,
+                quantidade,
+                ativo.getValorAtual(),
+                ativo
+        );
+
+        Transacao transacao = ordem.executarOrdem(taxa);
+        empresa.getCarteira().registrarTransacao(transacao);
+
+        System.out.println("Venda realizada com sucesso!");
     }
 
     private Empresa selecionarEmpresa() {
