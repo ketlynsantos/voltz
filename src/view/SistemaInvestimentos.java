@@ -19,10 +19,19 @@ public class SistemaInvestimentos {
     // Mercado ficticio de criptoativos
     private List<Criptoativo> mercado;
 
+    // Services
+    private AuthService authService;
+    private EmpresaService empresaService;
+    private CarteiraService carteiraService;
+
     public SistemaInvestimentos() {
         scanner = new Scanner(System.in);
         investidores = new ArrayList<>();
         mercado = new ArrayList<>();
+
+        authService = new AuthService();
+        empresaService = new EmpresaService();
+        carteiraService = new CarteiraService();
 
         carregarCriptoativos();
     }
@@ -35,10 +44,14 @@ public class SistemaInvestimentos {
             opcao = scanner.nextInt();
             switch (opcao) {
                 case 1:
-                    cadastrarInvestidor();
+                    authService.cadastrarInvestidor(investidores);
                     break;
                 case 2:
-                    login();
+                    investidorLogado = authService.login(investidores);
+
+                    if (investidorLogado != null) {
+                        menuInvestidor();
+                    }
                     break;
                 case 0:
                     System.out.println("Sistema encerrado.");
@@ -84,28 +97,28 @@ public class SistemaInvestimentos {
 
             switch (opcao) {
                 case 1:
-                    cadastrarEmpresa();
+                    empresaService.cadastrarEmpresa(investidorLogado);
                     break;
                 case 2:
-                    listarEmpresas();
+                    empresaService.listarEmpresas(investidorLogado);
                     break;
                 case 3:
-                    comprarCriptoativo();
+                    carteiraService.comprarCriptoativo(investidorLogado, mercado);
                     break;
                 case 4:
-                    venderCriptoativo();
+                    carteiraService.venderCriptoativo(investidorLogado, mercado);
                     break;
                 case 5:
-                    vizualizarCarteira();
+                    carteiraService.vizualizarCarteira(investidorLogado);
                     break;
                 case 6:
-                    visualizarResultado();
+                    carteiraService.visualizarResultado(investidorLogado);
                     break;
                 case 7:
-                    visualizarPatrimonioTotal();
+                    carteiraService.visualizarPatrimonioTotal(investidorLogado);
                     break;
                 case 0:
-                    logout();
+                    investidorLogado = authService.logout();
                     break;
                 default:
                     System.out.println("Opção inválida!");
@@ -126,234 +139,5 @@ public class SistemaInvestimentos {
         mercado.add(bitcoin);
         mercado.add(ethereum);
         mercado.add(solana);
-    }
-
-    private void cadastrarInvestidor() {
-        scanner.nextLine();
-        System.out.println("\n --- Cadastro de Investidor ---");
-        System.out.print("Nome: ");
-        String nome = scanner.nextLine();
-
-        System.out.print("Email: ");
-        String email = scanner.nextLine();
-
-        System.out.print("CPF: ");
-        String cpf = scanner.nextLine();
-
-        System.out.print("Senha: ");
-        String senha = scanner.nextLine();
-
-        Investidor novoInvestidor = new Investidor(nome, email, cpf, senha);
-        this.investidores.add(novoInvestidor);
-        this.investidorLogado = novoInvestidor;
-        System.out.println("Conta criada com sucesso!");
-    }
-
-    private void login() {
-        scanner.nextLine();
-        System.out.println("\n --- Login ---");
-
-        System.out.print("Email: ");
-        String email = scanner.nextLine();
-
-        System.out.print("Senha: ");
-        String senha = scanner.nextLine();
-
-        for (Investidor investidor : investidores) {
-            System.out.println("passa aqui" + investidor);
-            boolean emailValido = investidor.getEmail().equals(email);
-            boolean senhaValida = investidor.getSenhaHash().equals(senha);
-
-            if (emailValido && senhaValida) {
-                this.investidorLogado = investidor;
-
-                System.out.println("\nBem vindo, " + investidorLogado.getNome() + "!");
-
-                menuInvestidor();
-                return;
-            }
-        }
-
-        System.out.println("Email ou senha inválidos.");
-    }
-
-    private void logout() {
-        this.investidorLogado = null;
-
-        System.out.println("Logout realizado.");
-    }
-
-    private void cadastrarEmpresa() {
-        if (this.investidorLogado == null) {
-            System.out.println("Cadastre um investidor primeiro!");
-            return;
-        }
-
-        scanner.nextLine();
-        System.out.println("\n --- Cadastro de Empresa ---");
-
-        System.out.print("Razão social: ");
-        String razaoSocial = scanner.nextLine();
-
-        System.out.print("CNPJ: ");
-        String cnpj = scanner.nextLine();
-
-        Empresa empresa = new Empresa(razaoSocial, cnpj);
-        this.investidorLogado.adicionarEmpresa(empresa);
-
-        System.out.println("Empresa cadastrada com sucesso!");
-    }
-
-    private void listarEmpresas() {
-        List<Empresa> empresas = this.investidorLogado.getEmpresas();
-
-        if (empresas.isEmpty()) {
-            System.out.println("Nenhuma empresa cadastrada.");
-            return;
-        }
-
-        for (int i = 0; i < empresas.size(); i++) {
-            Empresa empresa = empresas.get(i);
-
-            System.out.println((i + 1) + " - " + empresa.getRazaoSocial());
-        }
-    }
-
-    private void comprarCriptoativo() {
-        Empresa empresa = selecionarEmpresa();
-
-        if (empresa == null) { return; }
-
-        Criptoativo ativo = selecionarCriptoativo();
-
-        if (ativo == null) { return ; }
-
-        System.out.print("Quantidade: ");
-        double quantidade = scanner.nextDouble();
-
-        System.out.print("Taxa: ");
-        double taxa = scanner.nextDouble();
-
-        Ordem ordem = new Ordem(
-                TipoOperacao.COMPRA,
-                quantidade,
-                ativo.getValorAtual(),
-                ativo
-        );
-
-        Transacao transacao = ordem.executarOrdem(taxa);
-        empresa.getCarteira().registrarTransacao(transacao);
-
-        System.out.println("Compra realizada com sucesso!");
-    }
-
-    private void venderCriptoativo() {
-        Empresa empresa = selecionarEmpresa();
-
-        if (empresa == null) { return; }
-
-        Criptoativo ativo = selecionarCriptoativo();
-
-        if (ativo == null) { return ; }
-
-        System.out.print("Quantidade: ");
-        double quantidade = scanner.nextDouble();
-
-        System.out.print("Taxa: ");
-        double taxa = scanner.nextDouble();
-
-        Ordem ordem = new Ordem(
-                TipoOperacao.VENDA,
-                quantidade,
-                ativo.getValorAtual(),
-                ativo
-        );
-
-        Transacao transacao = ordem.executarOrdem(taxa);
-        empresa.getCarteira().registrarTransacao(transacao);
-
-        System.out.println("Venda realizada com sucesso!");
-    }
-
-    private void vizualizarCarteira() {
-        Empresa empresa = selecionarEmpresa();
-
-        if (empresa == null) { return; }
-
-        List<Posicao> posicoes = empresa.getCarteira().getPosicoes();
-
-        if (posicoes.isEmpty()) {
-            System.out.println("Nenhuma posição encontrada.");
-            return;
-        }
-
-        System.out.println("\n --- Carteira - " + empresa.getRazaoSocial() + " ---");
-
-        for (Posicao posicao : posicoes) {
-            System.out.println(posicao.getCriptoativo().getNome() + " | Quantidade: " + posicao.getQuantidadeAtivo() + " | Valor Atual: R$ " + posicao.getValorAtual());
-        }
-    }
-
-    private void visualizarResultado() {
-        Empresa empresa = selecionarEmpresa();
-
-        if (empresa == null) { return; }
-
-        double resultado = empresa.getCarteira().calcularResultado();
-
-        System.out.println("\nResultado da carteira: R$ " + resultado);
-    }
-
-    private void visualizarPatrimonioTotal() {
-        double patrimonio = investidorLogado.calcularPatrimonioTotal();
-
-        System.out.println("\nPatrimônio total: R$ " + patrimonio);
-    }
-
-    private Empresa selecionarEmpresa() {
-        List<Empresa> empresas = this.investidorLogado.getEmpresas();
-
-        if (empresas.isEmpty()) {
-            System.out.println("Nenhuma empresa cadastrada.");
-            return null;
-        }
-
-        System.out.println("\n --- Empresas ---");
-
-        for (int i = 0; i < empresas.size(); i++) {
-            Empresa empresa = empresas.get(i);
-
-            System.out.println((i + 1) + " - " + empresa.getRazaoSocial());
-        }
-
-        System.out.print("Escolha a empresa: ");
-        int opcao = scanner.nextInt();
-
-        if (opcao < 1 || opcao > empresas.size()) {
-            System.out.println("Empresa inválida.");
-            return null;
-        }
-
-        return empresas.get(opcao - 1);
-    }
-
-    private Criptoativo selecionarCriptoativo() {
-        System.out.println("\n --- Mercado ---");
-
-        for (int i = 0; i < mercado.size(); i++) {
-            Criptoativo ativo = mercado.get(i);
-
-            System.out.println((i + 1) + " - " + ativo.getNome() + " (" + ativo.getSimbolo() + ") | R$ " + ativo.getValorAtual());
-        }
-
-        System.out.print("Escolha o ativo: ");
-        int opcao = scanner.nextInt();
-
-        if (opcao < 1 || opcao > mercado.size()) {
-            System.out.println("Ativo inválido.");
-            return null;
-        }
-
-        return mercado.get(opcao - 1);
     }
 }
