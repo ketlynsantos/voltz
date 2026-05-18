@@ -10,11 +10,19 @@ import java.util.Scanner;
 
 public class SistemaInvestimentos {
     private Scanner scanner;
-    private Investidor investidor;
+
+    // Lista de usuários cadastrados no sistema
+    private List<Investidor> investidores;
+
+    // Usuário atualmente logado
+    private Investidor investidorLogado;
+
+    // Mercado ficticio de criptoativos
     private List<Criptoativo> mercado;
 
     public SistemaInvestimentos() {
         scanner = new Scanner(System.in);
+        investidores = new ArrayList<>();
         mercado = new ArrayList<>();
 
         carregarCriptoativos();
@@ -24,14 +32,62 @@ public class SistemaInvestimentos {
         int opcao;
 
         do {
-            exibirMenu();
+            exibirMenuInicial();
             opcao = scanner.nextInt();
             switch (opcao) {
                 case 1:
                     cadastrarInvestidor();
                     break;
                 case 2:
+                    login();
+                    break;
+                case 0:
+                    System.out.println("Sistema encerrado.");
+                    break;
+                default:
+                    System.out.println("Opção inválida.");
+            }
+        } while (opcao != 0);
+    }
+
+    private void exibirMenuInicial() {
+        System.out.println("\n --- Voltz Investimentos ---");
+        System.out.println(
+                        "1. Criar conta \n" +
+                        "2. Login \n" +
+                        "0. Sair "
+        );
+        System.out.print("Escolha: ");
+    }
+
+    private void exibirPainelInvestidor() {
+        System.out.println("\n --- Painel do Investidor ---");
+        System.out.println(
+                "Escolha uma opção: \n" +
+                        "1. Cadastrar empresa \n" +
+                        "2. Listar empresas \n" +
+                        "3. Comprar criptoativo \n" +
+                        "4. Vender Criptoativo \n" +
+                        "5. Visualizar carteira \n" +
+                        "6. Visualizar lucro/prejuízo \n" +
+                        "7. Visualizar patrimônio total \n" +
+                        "0. Logout "
+        );
+        System.out.print("Escolha: ");
+    }
+
+    private void menuInvestidor() {
+        int opcao;
+
+        do {
+            exibirPainelInvestidor();
+            opcao = scanner.nextInt();
+
+            switch (opcao) {
+                case 1:
                     cadastrarEmpresa();
+                    break;
+                case 2:
                     break;
                 case 3:
                     break;
@@ -46,25 +102,9 @@ public class SistemaInvestimentos {
                 case 0:
                     break;
                 default:
-                    System.out.println("Opção inválida");
+                    System.out.println("Opção inválida!");
             }
-        } while (opcao != 0);
-    }
-
-    private void exibirMenu() {
-        System.out.println("\n --- Menu ---");
-        System.out.println(
-                "Escolha uma opção: \n" +
-                        "1. Cadastrar investidor \n" +
-                        "2. Cadastrar empresa \n" +
-                        "3. Listar empresas \n" +
-                        "4. Executar transação \n" +
-                        "5. Agendar Ordem \n" +
-                        "6. Visualizar lucro/prejuízo \n" +
-                        "7. Visualizar patrimônio total \n" +
-                        "0. Sair "
-        );
-        System.out.print("Escolha: ");
+        } while (investidorLogado != null);
     }
 
     private void carregarCriptoativos() {
@@ -97,12 +137,48 @@ public class SistemaInvestimentos {
         System.out.print("Senha: ");
         String senha = scanner.nextLine();
 
-        this.investidor = new Investidor(nome, email, cpf, senha);
-        System.out.println("Investidor cadastrado com sucesso!");
+        Investidor novoInvestidor = new Investidor(nome, email, cpf, senha);
+        this.investidores.add(novoInvestidor);
+        this.investidorLogado = novoInvestidor;
+        System.out.println("Conta criada com sucesso!");
+    }
+
+    private void login() {
+        scanner.nextLine();
+        System.out.println("\n --- Login ---");
+
+        System.out.print("Email: ");
+        String email = scanner.nextLine();
+
+        System.out.print("Senha: ");
+        String senha = scanner.nextLine();
+
+        for (Investidor investidor : investidores) {
+            System.out.println("passa aqui" + investidor);
+            boolean emailValido = investidor.getEmail().equals(email);
+            boolean senhaValida = investidor.getSenhaHash().equals(senha);
+
+            if (emailValido && senhaValida) {
+                this.investidorLogado = investidor;
+
+                System.out.println("\nBem vindo, " + investidorLogado.getNome() + "!");
+
+                menuInvestidor();
+                return;
+            }
+        }
+
+        System.out.println("Email ou senha inválidos.");
+    }
+
+    private void logout() {
+        this.investidorLogado = null;
+
+        System.out.println("Logout realizado.");
     }
 
     private void cadastrarEmpresa() {
-        if (investidor == null) {
+        if (this.investidorLogado == null) {
             System.out.println("Cadastre um investidor primeiro!");
             return;
         }
@@ -117,7 +193,7 @@ public class SistemaInvestimentos {
         String cnpj = scanner.nextLine();
 
         Empresa empresa = new Empresa(razaoSocial, cnpj);
-        investidor.adicionarEmpresa(empresa);
+        this.investidorLogado.adicionarEmpresa(empresa);
 
         System.out.println("Empresa cadastrada com sucesso!");
     }
