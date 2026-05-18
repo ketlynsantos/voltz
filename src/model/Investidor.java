@@ -4,19 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Investidor {
-    int id;
-    String nome;
-    String email;
-    String cpf;
-    String senhaHash;
-    List<Empresa> empresas;
+    private int id;
+    private String nome;
+    private String email;
+    private String cpf;
+    private String senhaHash;
+    private List<Empresa> empresas;
 
     public Investidor() {
         this.empresas = new ArrayList<>();
     }
 
-    public Investidor(int id, String nome, String email, String cpf, String senhaHash) {
-        this.id = id;
+    public Investidor(String nome, String email, String cpf, String senhaHash) {
         this.nome = nome;
         this.email = email;
         this.cpf = cpf;
