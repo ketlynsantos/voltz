@@ -96,10 +96,13 @@ public class SistemaInvestimentos {
                     venderCriptoativo();
                     break;
                 case 5:
+                    vizualizarCarteira();
                     break;
                 case 6:
+                    visualizarResultado();
                     break;
                 case 7:
+                    visualizarPatrimonioTotal();
                     break;
                 case 0:
                     logout();
@@ -270,6 +273,41 @@ public class SistemaInvestimentos {
         empresa.getCarteira().registrarTransacao(transacao);
 
         System.out.println("Venda realizada com sucesso!");
+    }
+
+    private void vizualizarCarteira() {
+        Empresa empresa = selecionarEmpresa();
+
+        if (empresa == null) { return; }
+
+        List<Posicao> posicoes = empresa.getCarteira().getPosicoes();
+
+        if (posicoes.isEmpty()) {
+            System.out.println("Nenhuma posição encontrada.");
+            return;
+        }
+
+        System.out.println("\n --- Carteira - " + empresa.getRazaoSocial() + " ---");
+
+        for (Posicao posicao : posicoes) {
+            System.out.println(posicao.getCriptoativo().getNome() + " | Quantidade: " + posicao.getQuantidadeAtivo() + " | Valor Atual: R$ " + posicao.getValorAtual());
+        }
+    }
+
+    private void visualizarResultado() {
+        Empresa empresa = selecionarEmpresa();
+
+        if (empresa == null) { return; }
+
+        double resultado = empresa.getCarteira().calcularResultado();
+
+        System.out.println("\nResultado da carteira: R$ " + resultado);
+    }
+
+    private void visualizarPatrimonioTotal() {
+        double patrimonio = investidorLogado.calcularPatrimonioTotal();
+
+        System.out.println("\nPatrimônio total: R$ " + patrimonio);
     }
 
     private Empresa selecionarEmpresa() {
