@@ -148,6 +148,7 @@ public class SistemaInvestimentos {
         mercado.add(solana);
     }
 
+    // Busca ativo por simbolo
     private Criptoativo buscarCriptoativo(String simbolo) {
         return mercado.stream().filter(item -> item.getSimbolo().equals(simbolo)).findFirst().orElse(null);
     }
