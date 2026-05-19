@@ -19,6 +19,8 @@ public abstract class OperacaoFinanceira {
         this.dataOperacao = LocalDateTime.now();
     }
 
+    public abstract String getDescricao();
+
     // Getters
     public int getId() {
         return id;

@@ -18,6 +18,11 @@ public class Transacao extends OperacaoFinanceira {
         this.valorTotal = calcularValorTotal();
     }
 
+    @Override
+    public String getDescricao() {
+        return "Transação de " + tipoOperacao + " realizada no valor de R$ " + valorTotal;
+    }
+
     // Calcula valor total automaticamente
     private double calcularValorTotal() {
         double valorBruto = quantidade * precoUnitario;

@@ -34,6 +34,11 @@ public class Ordem extends OperacaoFinanceira {
         );
     }
 
+    @Override
+    public String getDescricao() {
+        return "Ordem de " + tipoOperacao + " de " + quantidade + " " + criptoativo.getSimbolo();
+    }
+
     // Getters
     public StatusOrdem getStatusOrdem() {
         return statusOrdem;
