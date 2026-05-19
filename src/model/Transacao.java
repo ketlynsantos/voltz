@@ -15,11 +15,17 @@ public class Transacao extends OperacaoFinanceira {
         super(tipoOperacao, quantidade, criptoativo);
         this.precoUnitario = precoUnitario;
         this.taxa = taxa;
+        this.valorTotal = calcularValorTotal();
     }
 
     // Calcula valor total automaticamente
     private double calcularValorTotal() {
-        return (quantidade * precoUnitario) + taxa;
+        double valorBruto = quantidade * precoUnitario;
+
+        if (tipoOperacao == TipoOperacao.COMPRA) {
+            return valorBruto + taxa;
+        }
+        return valorBruto - taxa;
     }
 
     // Getters
