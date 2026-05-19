@@ -23,6 +23,12 @@ public class Criptoativo {
         historico.add(new HistoricoCotacao(novoValor));
     }
 
+    public String getDescricao() {
+        return "Ativo: " + nome +
+                " (" + simbolo + ")" +
+                "\nPreço atual: R$" + valorAtual;
+    }
+
     // Getters
     public int getId() {
         return id;
