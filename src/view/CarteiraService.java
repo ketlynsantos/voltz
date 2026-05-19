@@ -26,11 +26,20 @@ public class CarteiraService {
 
         if (ativo == null) { return ; }
 
-        System.out.print("Quantidade: ");
-        double quantidade = scanner.nextDouble();
+        System.out.println("\n --- Compra ---\n");
+        System.out.println(ativo.getDescricao());
 
-        System.out.print("Taxa: ");
-        double taxa = scanner.nextDouble();
+        System.out.print("Quantidade: ");
+        double quantidade = Double.parseDouble(scanner.nextLine());
+
+        double valorOperacao = quantidade * ativo.getValorAtual();
+        double taxa = valorOperacao * TAXA_PERCENTUAL;
+        double valorFinal = valorOperacao + taxa;
+
+        System.out.println("\nResumo:");
+        System.out.println("Valor operação: R$" + valorOperacao);
+        System.out.println("Taxa: R$" + taxa);
+        System.out.println("Valor final: R$" + valorFinal);
 
         Ordem ordem = new Ordem(
                 TipoOperacao.COMPRA,
