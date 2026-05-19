@@ -167,18 +167,9 @@ public class SistemaInvestimentos {
         investidor.adicionarEmpresa(mineradora);
         investidor.adicionarEmpresa(holding);
 
-        mineradora.getCarteira().registrarMovimentacao(
-                new MovimentacaoFiat(
-                        TipoMovimentacao.DEPOSITO,
-                        1_000_000
-                )
-        );
+        mineradora.getCarteira().registrarMovimentacao(TipoMovimentacao.DEPOSITO, 1_000_000);
 
-        holding.getCarteira().registrarMovimentacao(new MovimentacaoFiat(
-                TipoMovimentacao.DEPOSITO,
-                500_000
-
-        ));
+        holding.getCarteira().registrarMovimentacao(TipoMovimentacao.DEPOSITO, 500_000);
 
         Criptoativo bitcoin = buscarCriptoativo("BTC");
         Criptoativo ethereum = buscarCriptoativo("ETH");

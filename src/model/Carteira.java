@@ -1,5 +1,6 @@
 package model;
 
+import enums.TipoMovimentacao;
 import enums.TipoOperacao;
 
 import java.util.ArrayList;
@@ -22,6 +23,12 @@ public class Carteira {
     public void registrarMovimentacao(MovimentacaoFiat movimentacao) {
         movimentacoes.add(movimentacao);
         saldoDisponivelFiat += movimentacao.getValorComSinal();
+    }
+
+    // Overload
+    public void registrarMovimentacao(TipoMovimentacao tipoMovimentacao, double valor) {
+        MovimentacaoFiat movimentacaoFiat = new MovimentacaoFiat(tipoMovimentacao, valor);
+        registrarMovimentacao(movimentacaoFiat);
     }
 
     // Executar transação (compra/venda)
