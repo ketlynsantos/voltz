@@ -78,11 +78,12 @@ public class SistemaInvestimentos {
                 "Escolha uma opção: \n" +
                         "1. Cadastrar empresa \n" +
                         "2. Listar empresas \n" +
-                        "3. Comprar criptoativo \n" +
-                        "4. Vender Criptoativo \n" +
-                        "5. Visualizar carteira \n" +
-                        "6. Visualizar lucro/prejuízo \n" +
-                        "7. Visualizar patrimônio total \n" +
+                        "3. Depositar saldo \n" +
+                        "4. Comprar criptoativo \n" +
+                        "5. Vender Criptoativo \n" +
+                        "6. Visualizar carteira \n" +
+                        "7. Visualizar lucro/prejuízo \n" +
+                        "8. Visualizar patrimônio total \n" +
                         "0. Logout "
         );
         System.out.print("Escolha: ");
@@ -103,18 +104,21 @@ public class SistemaInvestimentos {
                     empresaService.listarEmpresas(investidorLogado);
                     break;
                 case 3:
-                    carteiraService.comprarCriptoativo(investidorLogado, mercado);
+                    carteiraService.depositarSaldo(investidorLogado);
                     break;
                 case 4:
-                    carteiraService.venderCriptoativo(investidorLogado, mercado);
+                    carteiraService.comprarCriptoativo(investidorLogado, mercado);
                     break;
                 case 5:
-                    carteiraService.vizualizarCarteira(investidorLogado);
+                    carteiraService.venderCriptoativo(investidorLogado, mercado);
                     break;
                 case 6:
-                    carteiraService.visualizarResultado(investidorLogado);
+                    carteiraService.vizualizarCarteira(investidorLogado);
                     break;
                 case 7:
+                    carteiraService.visualizarResultado(investidorLogado);
+                    break;
+                case 8:
                     carteiraService.visualizarPatrimonioTotal(investidorLogado);
                     break;
                 case 0:

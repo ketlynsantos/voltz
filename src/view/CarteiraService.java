@@ -1,5 +1,6 @@
 package view;
 
+import enums.TipoMovimentacao;
 import enums.TipoOperacao;
 import model.*;
 
@@ -15,6 +16,25 @@ public class CarteiraService {
     public CarteiraService() {
         scanner = new Scanner(System.in);
         empresaService = new EmpresaService();
+    }
+
+    public void depositarSaldo(Investidor investidorLogado) {
+        Empresa empresa = empresaService.selecionarEmpresa(investidorLogado);
+
+        if (empresa == null) {
+            return;
+        }
+
+        System.out.println("\n --- Depósito ---");
+
+        System.out.print("Valor do depósito: R$");
+        double valor = Double.parseDouble(scanner.nextLine());
+
+        MovimentacaoFiat movimentacao = new MovimentacaoFiat(TipoMovimentacao.DEPOSITO, valor);
+        empresa.getCarteira().registrarMovimentacao(movimentacao);
+
+        System.out.println("\nDepósito realizado com sucesso!");
+        System.out.println("Saldo atual: R$" + empresa.getCarteira().getSaldoDisponivelFiat());
     }
 
     public void comprarCriptoativo(Investidor investidorLogado, List<Criptoativo> mercado) {
