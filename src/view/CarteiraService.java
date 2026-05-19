@@ -34,7 +34,7 @@ public class CarteiraService {
         empresa.getCarteira().registrarMovimentacao(movimentacao);
 
         System.out.println("\nDepósito realizado com sucesso!");
-        System.out.println("Saldo atual: R$" + empresa.getCarteira().getSaldoDisponivelFiat());
+        System.out.printf("Saldo atual: R$%.2f%n", empresa.getCarteira().getSaldoDisponivelFiat());
     }
 
     public void comprarCriptoativo(Investidor investidorLogado, List<Criptoativo> mercado) {
@@ -62,10 +62,10 @@ public class CarteiraService {
         }
 
         System.out.println("\nResumo:");
-        System.out.println("Valor operação: R$" + valorOperacao);
-        System.out.println("Taxa: R$" + taxa);
-        System.out.println("Saldo disponível: R$" + empresa.getCarteira().getSaldoDisponivelFiat());
-        System.out.println("Valor final: R$" + valorFinal);
+        System.out.printf("\nValor operação: R$%.2f%n", valorOperacao);
+        System.out.printf("\nTaxa: R$%.2f%n", taxa);
+        System.out.printf("\nSaldo disponível: R$%.2f%n", empresa.getCarteira().getSaldoDisponivelFiat());
+        System.out.printf("\nValor final: R$%.2f%n", valorFinal);
 
         System.out.print("\nConfirmar compra? (S/N): ");
         String confirmacao = scanner.nextLine();
@@ -86,7 +86,7 @@ public class CarteiraService {
         empresa.getCarteira().registrarTransacao(transacao);
 
         System.out.println("Compra realizada com sucesso!");
-        System.out.println("Saldo restante: R$" + empresa.getCarteira().getSaldoDisponivelFiat());
+        System.out.printf("\nSaldo restante: R$%.2f%n", empresa.getCarteira().getSaldoDisponivelFiat());
     }
 
     public void venderCriptoativo(Investidor investidorLogado, List<Criptoativo> mercado) {
@@ -124,9 +124,9 @@ public class CarteiraService {
         double valorFinal = valorOperacao - taxa;
 
         System.out.println("\nResumo:");
-        System.out.println("Valor bruto: R$ " + valorOperacao);
-        System.out.println("Taxa: R$ " + taxa);
-        System.out.println("Valor líquido: R$ " + valorFinal);
+        System.out.printf("Valor bruto: R$ %.2f%n", valorOperacao);
+        System.out.printf("\nTaxa: R$ %.2f%n", taxa);
+        System.out.printf("\nValor líquido: R$ %.2f%n", valorFinal);
 
         System.out.print(
                 "\nConfirmar venda? (S/N): "
@@ -150,7 +150,7 @@ public class CarteiraService {
         empresa.getCarteira().registrarTransacao(transacao);
 
         System.out.println("\nVenda realizada com sucesso!");
-        System.out.println("Saldo atual: R$" + empresa.getCarteira().getSaldoDisponivelFiat());
+        System.out.printf("\nSaldo atual: R$%.2f%n", empresa.getCarteira().getSaldoDisponivelFiat());
     }
 
     public void vizualizarCarteira(Investidor investidorLogado) {
@@ -198,7 +198,7 @@ public class CarteiraService {
     public void visualizarPatrimonioTotal(Investidor investidorLogado) {
         double patrimonio = investidorLogado.calcularPatrimonioTotal();
 
-        System.out.println("\nPatrimônio total: R$ " + patrimonio);
+        System.out.printf("\nPatrimônio total: R$%.2f%n", patrimonio);
     }
 
     public Criptoativo selecionarCriptoativo(List<Criptoativo> mercado) {
