@@ -56,6 +56,14 @@ public class Carteira {
         return calcularValorTotal() - totalInvestido;
     }
 
+    // Busca posição por ativo
+    public Posicao buscarPosicao(Criptoativo ativo) {
+        return posicoes.stream()
+                .filter(posicao -> posicao.getCriptoativo().equals(ativo))
+                .findFirst()
+                .orElse(null);
+    }
+
     // Atualiza posição na compra
     private void atualizarPosicaoCompra(Transacao transacao) {
         Posicao posicao = buscarPosicao(transacao.getCriptoativo());
@@ -75,14 +83,6 @@ public class Carteira {
         if (posicao != null) {
             posicao.reduzirPosicao(transacao.getQuantidade());
         }
-    }
-
-    // Busca posição por ativo
-    private Posicao buscarPosicao(Criptoativo ativo) {
-        return posicoes.stream()
-                .filter(posicao -> posicao.getCriptoativo().equals(ativo))
-                .findFirst()
-                .orElse(null);
     }
 
     // Getters
