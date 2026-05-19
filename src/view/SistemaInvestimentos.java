@@ -132,12 +132,13 @@ public class SistemaInvestimentos {
         } while (investidorLogado != null);
     }
 
+    // Mercado ficticio
     private void carregarCriptoativos() {
         Criptoativo bitcoin = new Criptoativo("Bitcoin", "BTC");
-        bitcoin.atualizarCotacao(350000);
+        bitcoin.atualizarCotacao(350_000);
 
         Criptoativo ethereum = new Criptoativo("Ethereum", "ETH");
-        ethereum.atualizarCotacao(18000);
+        ethereum.atualizarCotacao(180_00);
 
         Criptoativo solana = new Criptoativo("Solana", "SOL");
         solana.atualizarCotacao(750);
