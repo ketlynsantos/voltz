@@ -62,10 +62,10 @@ public class CarteiraService {
         }
 
         System.out.println("\nResumo:");
-        System.out.printf("\nValor operação: R$%.2f%n", valorOperacao);
-        System.out.printf("\nTaxa: R$%.2f%n", taxa);
-        System.out.printf("\nSaldo disponível: R$%.2f%n", empresa.getCarteira().getSaldoDisponivelFiat());
-        System.out.printf("\nValor final: R$%.2f%n", valorFinal);
+        System.out.printf("Valor operação: R$%.2f%n", valorOperacao);
+        System.out.printf("Taxa: R$%.2f%n", taxa);
+        System.out.printf("Saldo disponível: R$%.2f%n", empresa.getCarteira().getSaldoDisponivelFiat());
+        System.out.printf("Valor final: R$%.2f%n", valorFinal);
 
         System.out.print("\nConfirmar compra? (S/N): ");
         String confirmacao = scanner.nextLine();
@@ -125,8 +125,8 @@ public class CarteiraService {
 
         System.out.println("\nResumo:");
         System.out.printf("Valor bruto: R$ %.2f%n", valorOperacao);
-        System.out.printf("\nTaxa: R$ %.2f%n", taxa);
-        System.out.printf("\nValor líquido: R$ %.2f%n", valorFinal);
+        System.out.printf("Taxa: R$ %.2f%n", taxa);
+        System.out.printf("Valor líquido: R$ %.2f%n", valorFinal);
 
         System.out.print(
                 "\nConfirmar venda? (S/N): "
