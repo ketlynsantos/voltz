@@ -86,6 +86,7 @@ public class CarteiraService {
         empresa.getCarteira().registrarTransacao(transacao);
 
         System.out.println("Compra realizada com sucesso!");
+        System.out.println("Saldo restante: R$" + empresa.getCarteira().getSaldoDisponivelFiat());
     }
 
     public void venderCriptoativo(Investidor investidorLogado, List<Criptoativo> mercado) {
@@ -149,6 +150,7 @@ public class CarteiraService {
         empresa.getCarteira().registrarTransacao(transacao);
 
         System.out.println("\nVenda realizada com sucesso!");
+        System.out.println("Saldo atual: R$" + empresa.getCarteira().getSaldoDisponivelFiat());
     }
 
     public void vizualizarCarteira(Investidor investidorLogado) {
