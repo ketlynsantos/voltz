@@ -56,6 +56,16 @@ public class Posicao {
         return (calcularResultadoNaoRealizado() / valorTotalInvestido) * 100;
     }
 
+    // Verifica se o ativo possui quantidade requisitada
+    public boolean possuiQuantidade(double quantidade) {
+        return quantidade <= quantidadeAtivo;
+    }
+
+    // Descrição
+    public String getDescricao() {
+        return criptoativo.getNome() + " | Quantidade: " + quantidadeAtivo + " | Valor Atual: R$" + getValorAtual();
+    }
+
     // Getters
     public int getId() {
         return id;
