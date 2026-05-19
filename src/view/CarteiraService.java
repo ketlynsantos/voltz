@@ -10,6 +10,8 @@ public class CarteiraService {
     private Scanner scanner;
     private EmpresaService empresaService;
 
+    private static final double TAXA_PERCENTUAL = 0.02;
+
     public CarteiraService() {
         scanner = new Scanner(System.in);
         empresaService = new EmpresaService();
