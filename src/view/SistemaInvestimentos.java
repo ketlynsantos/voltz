@@ -1,5 +1,6 @@
 package view;
 
+import enums.TipoMovimentacao;
 import enums.TipoOperacao;
 import model.*;
 
@@ -34,6 +35,7 @@ public class SistemaInvestimentos {
         carteiraService = new CarteiraService();
 
         carregarCriptoativos();
+        carregarDadosMockados();
     }
 
     public void iniciar() {
@@ -143,5 +145,66 @@ public class SistemaInvestimentos {
         mercado.add(bitcoin);
         mercado.add(ethereum);
         mercado.add(solana);
+    }
+
+    private Criptoativo buscarCriptoativo(String simbolo) {
+        return mercado.stream().filter(item -> item.getSimbolo().equals(simbolo)).findFirst().orElse(null);
+    }
+
+    // Facilitar a vida de quem quer testar
+    private void carregarDadosMockados() {
+        double TAXA = 0.02; //2%
+        Investidor investidor = new Investidor(
+                "Tio Patinhas",
+                "patinhas@voltz.com",
+                "123445678900",
+                "123"
+        );
+
+        Empresa mineradora = new Empresa("Patinhas Mineração LTDA", "11.111.111/0001-11");
+        Empresa holding = new Empresa("Patinhas Holding SA", "22.222.222/0002-22");
+
+        investidor.adicionarEmpresa(mineradora);
+        investidor.adicionarEmpresa(holding);
+
+        mineradora.getCarteira().registrarMovimentacao(
+                new MovimentacaoFiat(
+                        TipoMovimentacao.DEPOSITO,
+                        1_000_000
+                )
+        );
+
+        holding.getCarteira().registrarMovimentacao(new MovimentacaoFiat(
+                TipoMovimentacao.DEPOSITO,
+                500_000
+
+        ));
+
+        Criptoativo bitcoin = buscarCriptoativo("BTC");
+        Criptoativo ethereum = buscarCriptoativo("ETH");
+        Criptoativo solana = buscarCriptoativo("SOL");
+
+        // Movimentações - Mineradora
+        // Compras
+        Ordem ordemBtcMineradora = new Ordem(TipoOperacao.COMPRA, 1.5, bitcoin.getValorAtual(), bitcoin);
+        Transacao transacaoBtcMineradora = ordemBtcMineradora.executarOrdem(TAXA);
+        mineradora.getCarteira().registrarTransacao(transacaoBtcMineradora);
+
+        Ordem ordemEthMineradora = new Ordem(TipoOperacao.COMPRA, 10, ethereum.getValorAtual(), ethereum);
+        Transacao transacaoEthMineradora = ordemEthMineradora.executarOrdem(TAXA);
+        mineradora.getCarteira().registrarTransacao(transacaoEthMineradora);
+
+        // Vendas
+        Ordem ordemVendaBtcMineradora = new Ordem(TipoOperacao.VENDA, 0.2, bitcoin.getValorAtual(), bitcoin);
+        Transacao transacaoVendaBtcMineradora = ordemVendaBtcMineradora.executarOrdem(TAXA);
+        mineradora.getCarteira().registrarTransacao(transacaoVendaBtcMineradora);
+
+        // Movimentações - Holding
+        // Compras
+        Ordem ordemSolHolding = new Ordem(TipoOperacao.COMPRA, 100, solana.getValorAtual(), solana);
+        Transacao transacaoSolHolding = ordemSolHolding.executarOrdem(TAXA);
+        holding.getCarteira().registrarTransacao(transacaoSolHolding);
+
+        investidores.add(investidor);
     }
 }
