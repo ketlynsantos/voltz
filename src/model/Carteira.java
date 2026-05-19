@@ -57,7 +57,7 @@ public class Carteira {
     }
 
     // Busca posição por ativo
-    public Posicao buscarPosicao(Criptoativo ativo) {
+    public Posicao buscarPosicaoPorAtivo(Criptoativo ativo) {
         return posicoes.stream()
                 .filter(posicao -> posicao.getCriptoativo().equals(ativo))
                 .findFirst()
