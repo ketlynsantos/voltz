@@ -41,7 +41,6 @@ public class AuthService {
         String senha = scanner.nextLine();
 
         for (Investidor investidor : investidores) {
-            System.out.println("passa aqui" + investidor);
             boolean emailValido = investidor.getEmail().equals(email);
             boolean senhaValida = investidor.getSenhaHash().equals(senha);
 
