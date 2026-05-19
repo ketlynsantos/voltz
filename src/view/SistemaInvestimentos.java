@@ -41,7 +41,7 @@ public class SistemaInvestimentos {
 
         do {
             exibirMenuInicial();
-            opcao = scanner.nextInt();
+            opcao = Integer.parseInt(scanner.nextLine());
             switch (opcao) {
                 case 1:
                     authService.cadastrarInvestidor(investidores);
@@ -93,7 +93,7 @@ public class SistemaInvestimentos {
 
         do {
             exibirPainelInvestidor();
-            opcao = scanner.nextInt();
+            opcao = Integer.parseInt(scanner.nextLine());
 
             switch (opcao) {
                 case 1:

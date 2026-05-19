@@ -114,7 +114,7 @@ public class CarteiraService {
         Transacao transacao = ordem.executarOrdem(taxa);
         empresa.getCarteira().registrarTransacao(transacao);
 
-        System.out.println("Venda realizada com sucesso!");
+        System.out.println("\nVenda realizada com sucesso!");
     }
 
     public void vizualizarCarteira(Investidor investidorLogado) {
@@ -132,7 +132,7 @@ public class CarteiraService {
         System.out.println("\n --- Carteira - " + empresa.getRazaoSocial() + " ---");
 
         for (Posicao posicao : posicoes) {
-            System.out.println(posicao.getCriptoativo().getNome() + " | Quantidade: " + posicao.getQuantidadeAtivo() + " | Valor Atual: R$ " + posicao.getValorAtual());
+            System.out.println(posicao.getDescricao());
         }
     }
 
@@ -158,11 +158,11 @@ public class CarteiraService {
         for (int i = 0; i < mercado.size(); i++) {
             Criptoativo ativo = mercado.get(i);
 
-            System.out.println((i + 1) + " - " + ativo.getNome() + " (" + ativo.getSimbolo() + ") | R$ " + ativo.getValorAtual());
+            System.out.println((i + 1) + " - " + ativo.getDescricao() + "\n");
         }
 
         System.out.print("Escolha o ativo: ");
-        int opcao = scanner.nextInt();
+        int opcao = Integer.parseInt(scanner.nextLine());
 
         if (opcao < 1 || opcao > mercado.size()) {
             System.out.println("Ativo inválido.");

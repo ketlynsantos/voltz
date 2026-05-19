@@ -65,7 +65,7 @@ public class EmpresaService {
         }
 
         System.out.print("Escolha a empresa: ");
-        int opcao = scanner.nextInt();
+        int opcao = Integer.parseInt(scanner.nextLine());
 
         if (opcao < 1 || opcao > empresas.size()) {
             System.out.println("Empresa inválida.");
