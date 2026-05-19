@@ -198,7 +198,11 @@ public class CarteiraService {
     public void visualizarPatrimonioTotal(Investidor investidorLogado) {
         double patrimonio = investidorLogado.calcularPatrimonioTotal();
 
-        System.out.printf("\nPatrimônio total: R$%.2f%n", patrimonio);
+        System.out.println("\nPatrimônio por Empresa:");
+        for (Empresa empresa : investidorLogado.getEmpresas()) {
+            System.out.printf("\n- %s: R$%.2f%n", empresa.getRazaoSocial(), empresa.calcularPatrimonio());
+        }
+        System.out.printf("Patrimônio total: R$%.2f%n", patrimonio);
     }
 
     public Criptoativo selecionarCriptoativo(List<Criptoativo> mercado) {
