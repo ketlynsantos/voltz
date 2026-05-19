@@ -25,7 +25,7 @@ public class Posicao {
     // Venda
     public void reduzirPosicao(double quantidadeVendida) {
         if (quantidadeVendida > quantidadeAtivo) {
-            System.out.println("Quantidade maior que a disponível");
+            throw new RuntimeException("Quantidade maior que a disponível");
         }
 
         double custoMedio = precoMedioCompra * quantidadeVendida;
