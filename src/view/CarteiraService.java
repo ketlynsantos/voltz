@@ -63,11 +63,46 @@ public class CarteiraService {
 
         if (ativo == null) { return ; }
 
-        System.out.print("Quantidade: ");
-        double quantidade = scanner.nextDouble();
+        Posicao posicao = empresa.getCarteira().buscarPosicaoPorAtivo(ativo);
+        if (posicao == null) {
+            System.out.println("Você não possui este ativo.");
+            return;
+        }
 
-        System.out.print("Taxa: ");
-        double taxa = scanner.nextDouble();
+        System.out.println("\n --- Venda ---\n");
+        System.out.println(ativo.getDescricao());
+        System.out.println("Quantidade disponível: " + posicao.getQuantidadeAtivo());
+
+        System.out.print("Quantidade para venda: ");
+        double quantidade = Double.parseDouble(scanner.nextLine());
+
+        // Validação da quantidade
+        if (!posicao.possuiQuantidade(quantidade)) {
+            System.out.println(
+                    "\nQuantidade insuficiente."
+            );
+            return;
+        }
+
+        double valorOperacao = quantidade * ativo.getValorAtual();
+        double taxa = valorOperacao * TAXA_PERCENTUAL;
+        double valorFinal = valorOperacao - taxa;
+
+        System.out.println("\nResumo:");
+        System.out.println("Valor bruto: R$ " + valorOperacao);
+        System.out.println("Taxa: R$ " + taxa);
+        System.out.println("Valor líquido: R$ " + valorFinal);
+
+        System.out.print(
+                "\nConfirmar venda? (S/N): "
+        );
+
+        String confirmacao = scanner.nextLine();
+
+        if (!confirmacao.equalsIgnoreCase("S")) {
+            System.out.println("Venda cancelada.");
+            return;
+        }
 
         Ordem ordem = new Ordem(
                 TipoOperacao.VENDA,
