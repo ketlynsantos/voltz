@@ -66,7 +66,7 @@ public class Carteira {
 
     // Atualiza posição na compra
     private void atualizarPosicaoCompra(Transacao transacao) {
-        Posicao posicao = buscarPosicao(transacao.getCriptoativo());
+        Posicao posicao = buscarPosicaoPorAtivo(transacao.getCriptoativo());
 
         if (posicao == null) {
             posicao = new Posicao(transacao.getCriptoativo());
@@ -78,7 +78,7 @@ public class Carteira {
 
     // Atualiza posição na venda
     private void atualizarPosicaoVenda(Transacao transacao) {
-        Posicao posicao = buscarPosicao(transacao.getCriptoativo());
+        Posicao posicao = buscarPosicaoPorAtivo(transacao.getCriptoativo());
 
         if (posicao != null) {
             posicao.reduzirPosicao(transacao.getQuantidade());
