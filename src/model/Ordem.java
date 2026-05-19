@@ -48,7 +48,6 @@ public class Ordem extends OperacaoFinanceira {
         return precoLimite;
     }
 
-
     public LocalDateTime getDataExecucao() {
         return dataExecucao;
     }
