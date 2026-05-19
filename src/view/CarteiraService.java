@@ -177,9 +177,22 @@ public class CarteiraService {
 
         if (empresa == null) { return; }
 
-        double resultado = empresa.getCarteira().calcularResultado();
+        System.out.println("\n --- Resultado da Carteira ---");
 
-        System.out.println("\nResultado da carteira: R$ " + resultado);
+        double resultadoTotal = 0;
+
+        for (Posicao posicao : empresa.getCarteira().getPosicoes()) {
+            double resultado = posicao.calcularResultadoNaoRealizado();
+
+            resultadoTotal += resultado;
+
+            System.out.println("\nAtivo: " + posicao.getCriptoativo().getSimbolo());
+            System.out.printf("Investido: R$%.2f%n", posicao.getValorTotalInvestido());
+            System.out.printf("Atual: R$%.2f%n", posicao.getValorAtual());
+            System.out.printf("Resultado: R$%.2f%n", resultado);
+            System.out.printf("Rentabilidade: %.2f%%%n", posicao.calcularRentabilidade());
+        }
+        System.out.printf("Resultado Total: R$%.2f%n", resultadoTotal);
     }
 
     public void visualizarPatrimonioTotal(Investidor investidorLogado) {
