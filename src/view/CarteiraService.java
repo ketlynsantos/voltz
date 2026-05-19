@@ -56,10 +56,24 @@ public class CarteiraService {
         double taxa = valorOperacao * TAXA_PERCENTUAL;
         double valorFinal = valorOperacao + taxa;
 
+        if (empresa.getCarteira().getSaldoDisponivelFiat() < valorFinal) {
+            System.out.println("\nSaldo insuficiente.");
+            return;
+        }
+
         System.out.println("\nResumo:");
         System.out.println("Valor operação: R$" + valorOperacao);
         System.out.println("Taxa: R$" + taxa);
+        System.out.println("Saldo disponível: R$" + empresa.getCarteira().getSaldoDisponivelFiat());
         System.out.println("Valor final: R$" + valorFinal);
+
+        System.out.print("\nConfirmar compra? (S/N): ");
+        String confirmacao = scanner.nextLine();
+
+        if (!confirmacao.equalsIgnoreCase("S")) {
+            System.out.println("Compra cancelada.");
+            return;
+        }
 
         Ordem ordem = new Ordem(
                 TipoOperacao.COMPRA,
