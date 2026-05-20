@@ -43,7 +43,13 @@ public class SistemaInvestimentos {
 
         do {
             exibirMenuInicial();
-            opcao = Integer.parseInt(scanner.nextLine());
+            try {
+                opcao = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Error: Digite apenas números inteiros.");
+                opcao = -1;
+            }
+
             switch (opcao) {
                 case 1:
                     authService.cadastrarInvestidor(investidores);
@@ -96,7 +102,13 @@ public class SistemaInvestimentos {
 
         do {
             exibirPainelInvestidor();
-            opcao = Integer.parseInt(scanner.nextLine());
+
+            try {
+                opcao = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Error: Digite apenas números inteiros.");
+                opcao = -1;
+            }
 
             switch (opcao) {
                 case 1:
