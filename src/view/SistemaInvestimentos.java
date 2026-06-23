@@ -22,6 +22,7 @@ public class SistemaInvestimentos {
     private List<Criptoativo> mercado;
 
     private HashMap<String, Investidor> investidoresPorEmail;
+    private ArquivoService arquivoService;
 
     // Services
     private AuthService authService;
@@ -38,6 +39,7 @@ public class SistemaInvestimentos {
         carteiraService = new CarteiraService();
 
         investidoresPorEmail = new HashMap<>();
+        arquivoService = new ArquivoService();
 
         carregarCriptoativos();
         carregarDadosMockados();
@@ -101,6 +103,7 @@ public class SistemaInvestimentos {
                         "6. Visualizar carteira \n" +
                         "7. Visualizar lucro/prejuízo \n" +
                         "8. Visualizar patrimônio total \n" +
+                        "9. Exportar dados para arquivo \n" +
                         "0. Logout "
         );
         System.out.print("Escolha: ");
@@ -143,6 +146,9 @@ public class SistemaInvestimentos {
                     break;
                 case 8:
                     carteiraService.visualizarPatrimonioTotal(investidorLogado);
+                    break;
+                case 9:
+                    arquivoService.salvarInvestidor(investidorLogado);
                     break;
                 case 0:
                     investidorLogado = authService.logout();
