@@ -5,6 +5,7 @@ import enums.TipoOperacao;
 import model.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
@@ -20,6 +21,8 @@ public class SistemaInvestimentos {
     // Mercado ficticio de criptoativos
     private List<Criptoativo> mercado;
 
+    private HashMap<String, Investidor> investidoresPorEmail;
+
     // Services
     private AuthService authService;
     private EmpresaService empresaService;
@@ -33,6 +36,8 @@ public class SistemaInvestimentos {
         authService = new AuthService();
         empresaService = new EmpresaService();
         carteiraService = new CarteiraService();
+
+        investidoresPorEmail = new HashMap<>();
 
         carregarCriptoativos();
         carregarDadosMockados();
@@ -52,7 +57,11 @@ public class SistemaInvestimentos {
 
             switch (opcao) {
                 case 1:
-                    authService.cadastrarInvestidor(investidores);
+                    Investidor novoInvestidor = authService.cadastrarInvestidor(investidores);
+                    investidoresPorEmail.put(
+                            novoInvestidor.getEmail(),
+                            novoInvestidor
+                    );
                     break;
                 case 2:
                     investidorLogado = authService.login(investidores);
@@ -211,5 +220,6 @@ public class SistemaInvestimentos {
         holding.getCarteira().registrarTransacao(transacaoSolHolding);
 
         investidores.add(investidor);
+        investidoresPorEmail.put(investidor.getEmail(), investidor);
     }
 }

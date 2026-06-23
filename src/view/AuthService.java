@@ -12,7 +12,7 @@ public class AuthService {
         scanner = new Scanner(System.in);
     }
 
-    public void cadastrarInvestidor(List<Investidor> investidores) {
+    public Investidor cadastrarInvestidor(List<Investidor> investidores) {
         System.out.println("\n --- Cadastro de Investidor ---");
         System.out.print("Nome: ");
         String nome = scanner.nextLine();
@@ -29,6 +29,7 @@ public class AuthService {
         Investidor novoInvestidor = new Investidor(nome, email, cpf, senha);
         investidores.add(novoInvestidor);
         System.out.println("\nConta criada com sucesso!");
+        return novoInvestidor;
     }
 
     public Investidor login(List<Investidor> investidores) {

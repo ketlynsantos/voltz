@@ -4,6 +4,7 @@ import enums.TipoMovimentacao;
 import enums.TipoOperacao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Carteira {
@@ -12,11 +13,14 @@ public class Carteira {
     private List<MovimentacaoFiat> movimentacoes;
     private List<Transacao> transacoes;
     private List<Posicao> posicoes;
+    private HashMap<String, Posicao> posicoesPorAtivo;
 
     public Carteira() {
         this.movimentacoes = new ArrayList<>();
         this.transacoes = new ArrayList<>();
         this.posicoes = new ArrayList<>();
+
+        posicoesPorAtivo = new HashMap<>();
     }
 
     // Registra entrada/saida de dinheiro
@@ -65,10 +69,7 @@ public class Carteira {
 
     // Busca posição por ativo
     public Posicao buscarPosicaoPorAtivo(Criptoativo ativo) {
-        return posicoes.stream()
-                .filter(posicao -> posicao.getCriptoativo().equals(ativo))
-                .findFirst()
-                .orElse(null);
+        return posicoesPorAtivo.get(ativo.getSimbolo());
     }
 
     // Atualiza posição na compra
@@ -78,6 +79,11 @@ public class Carteira {
         if (posicao == null) {
             posicao = new Posicao(transacao.getCriptoativo());
             posicoes.add(posicao);
+
+            posicoesPorAtivo.put(
+                    transacao.getCriptoativo().getSimbolo(),
+                    posicao
+            );
         }
 
         posicao.adicionarCompra(transacao.getQuantidade(), transacao.getValorTotal());
@@ -89,6 +95,14 @@ public class Carteira {
 
         if (posicao != null) {
             posicao.reduzirPosicao(transacao.getQuantidade());
+
+            if (posicao.getQuantidadeAtivo() == 0) {
+                posicoes.remove(posicao);
+
+                posicoesPorAtivo.remove(
+                        transacao.getCriptoativo().getSimbolo()
+                );
+            }
         }
     }
 
@@ -132,5 +146,13 @@ public class Carteira {
 
     public void setPosicoes(List<Posicao> posicoes) {
         this.posicoes = posicoes;
+    }
+
+    public HashMap<String, Posicao> getPosicoesPorAtivo() {
+        return posicoesPorAtivo;
+    }
+
+    public void setPosicoesPorAtivo(HashMap<String, Posicao> posicoesPorAtivo) {
+        this.posicoesPorAtivo = posicoesPorAtivo;
     }
 }
