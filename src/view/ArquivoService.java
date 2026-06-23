@@ -41,6 +41,10 @@ public class ArquivoService {
                 writer.write(String.format("Patrimônio: R$ %.2f", empresa.calcularPatrimonio()));
                 writer.newLine();
 
+                writer.write("Quantidade de posições indexadas: "
+                        + empresa.getCarteira().getPosicoesPorAtivo().size());
+                writer.newLine();
+
                 writer.write("Posições:");
                 writer.newLine();
                 writer.newLine();
